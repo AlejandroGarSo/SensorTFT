@@ -58,14 +58,14 @@ def cut(data, cutpoint, time, dataDir, sepDir, f, type):
         ini = int(final[k])
         fin = int(inicio[k + 1])
         #print(ini, fin)
-        #f.write(str(fin-ini))
-        #f.write("\n")
+        f.write(str(fin-ini))
+        f.write("\n")
         out = df.iloc[ini:fin, :]
         nameFich = sepDir + r'\\' + type + r'\\' + user + r'\\' + str(k) + r'\\'+ file+".csv"
         if not os.path.exists(sepDir + r'\\' + type + r'\\' + user + r'\\' + str(k)):
             os.makedirs(sepDir + r'\\' + type + r'\\' + user + r'\\' + str(k))
-        print(nameFich)
-        #out.to_csv(nameFich, index=False, header=False)
+        #print(nameFich)
+        out.to_csv(nameFich, index=False, header=False)
         plt.axvline(x=ini, color="red")
         plt.axvline(x=fin, color="green")
     plt.plot(dfsum)
@@ -78,7 +78,7 @@ def cutLoose(data, cutpoint, time, dataDir, sepDir, f, type):
     user = data[:-5]
     file = data[-5]
     numFich = 0
-    print(fich)
+    #print(fich)
     df = pd.read_csv(fich, header=None)
     df1 = df.copy()
     line = True
@@ -105,8 +105,8 @@ def cutLoose(data, cutpoint, time, dataDir, sepDir, f, type):
                 # print(df1[0][k] - initime)
                 if df1[0][k] - initime >= time and line:
                     out = df.iloc[prevFich:k, :]
-                    #f.write(str(prevFich-k))
-                    #f.write("\n")
+                    f.write(str(prevFich-k))
+                    f.write("\n")
                     prevFich = k
                     nameFich = os.path.join(sepDir, type, user, str(numFich), file+".csv")
                     if not os.path.exists(os.path.join(sepDir, type, user, str(numFich))):
@@ -126,18 +126,18 @@ def cutLoose(data, cutpoint, time, dataDir, sepDir, f, type):
     nameFich = os.path.join(sepDir, type, user, str(numFich), file)
     if not os.path.exists(os.path.join(sepDir, type, user, str(numFich))):
         os.makedirs(os.path.join(sepDir, type, user, str(numFich)))
-    #out.to_csv(nameFich, index=False, header=False)
+    out.to_csv(nameFich, index=False, header=False)
     print(numFich)
     x = np.arange(0., len(dfsum) / 100, 0.01)
     if x[-1] == len(dfsum)/100:
         x = x[:-1]
     #print(np.arange(0., len(dfsum) / 100, 0.01)[-1])
-    plt.plot(x, dfsum, label="Aceleración")
+    #plt.plot(x, dfsum, label="Aceleración")
     #plt.xlabel("Tiempo(s)")
     #plt.ylabel("Aceleración(m/s\u00b2)")
     #plt.legend()
     #plt.savefig(r"Images\cutA2\\" + user + file)
-    plt.show()
+    #plt.show()
 
 
 def getFiles(dataDir, sepDir, cutpoint, timer, type):
